@@ -1,45 +1,77 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {Button, Input} from "antd";
 import styled from "styled-components";
+import {ProfilePost} from "./ProfilePost/ProfilePost";
+import {useAppDispatch, useAppSelector} from "../../hook/hooks";
+import {addPost} from "../../redux/profileSlice";
+
 
 export const ProfilePosts = () => {
-    const [post,setPost] = useState(
-        [{id:1,title:"I'm fine thanks!",addedDate:new Date(),likes:5,},
-            {id:1,title:"I'm fine thanks!",addedDate:new Date(),likes:5,},
-            {id:1,title:"I'm fine thanks!",addedDate:new Date(),likes:5,}]
+
+    const [title, setTitle] = useState('')
+    const dispatch = useAppDispatch()
+    const post = useAppSelector(state => state.profile.posts)
+
+    const posts = post.map(p =>
+        <ProfilePost
+            key={p.id}
+            title={p.title}
+            id={p.id}
+            likes={p.likes}/>
     )
 
-    const posts = post.map(p=><ProfilePost/>)
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        let newText = e.currentTarget.value
+        setTitle(newText)
+    }
+    const onClickHandler = () => {
+        if (title.length !== 0) {
+            dispatch(addPost({title}))
+            setTitle('')
+        }
+    }
 
     return (
-        <div>
-
-            <ProfilePostContainer>
-                <Input/>
-                <Button type='primary'>ADD POST</Button>
-            </ProfilePostContainer>
-            <div>
-                {
-                    post.map(post=>{
-                        return(
-                            <div>
-                                {post.title}
-                            </div>
-                        )
-                    })
-                }
-            </div>
-        </div>
+        <ProfilePostContainer>
+            <AddPostContainer>
+                <Input value={title} onChange={onChangeHandler} placeholder='Anything new?'/>
+                <Button style={{width:'50px',fontSize:'10px',marginLeft:'10px'}} onClick={onClickHandler} type='primary'>ADD</Button>
+            </AddPostContainer>
+            <PostContainer>
+                {posts}
+            </PostContainer>
+        </ProfilePostContainer>
     );
 };
 
 
-const ProfilePostContainer = styled.div`
+
+const AddPostContainer = styled.div`
   display: flex;
   flex-direction: row;
+  margin: 0 auto;
   align-items: center;
   padding: 25px;
-  border-radius: 8px;
+  border-radius: 25px;  
   background-color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* Добавьте эту строку для тени */
-`;
+  width: 100%;
+`
+
+const PostContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  
+`
+
+const ProfilePostContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 25px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`
+

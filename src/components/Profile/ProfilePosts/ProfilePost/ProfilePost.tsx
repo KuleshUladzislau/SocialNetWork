@@ -1,29 +1,61 @@
 import React from 'react';
 import styled from "styled-components";
+import {useAppDispatch} from "../../../hook/hooks";
+import {deletePost} from "../../../redux/profileSlice";
+import Card from "antd/es/card/Card";
 
 
 type ProfilePostType = {
-    id:number
+    id:string
     title:string
-    addedDate:Date
     likes:number
 }
 export const ProfilePost = (props:ProfilePostType) => {
-    const {likes,addedDate,title,id} = props
+    const {likes,title,id} = props
+    const dispatch = useAppDispatch()
+    const deletePostHandler = ()=>{
+        dispatch(deletePost({id}))
+    }
     return (
         <PostContainer>
-            <p>{title}</p>
-            <p>likes:{likes}</p>
+            <Title>{title}</Title>
+            <Likes>Likes: {likes}</Likes>
+            <Button onClick={deletePostHandler}>x</Button>
         </PostContainer>
     );
 };
 
-const PostContainer = styled.div`
+const PostContainer = styled(Card)`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  padding: 25px;
-  border-radius: 8px;
-  background-color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* Добавьте эту строку для тени */
+  justify-content: center;
+  position: relative;
+  min-height: 100px;
+  width: 100%;
+  border-radius: 20px;
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  word-break: break-word;
+`;
+
+const Title = styled.p`
+  text-align: center;
+  width: 300px;
+`;
+
+const Likes = styled.p`
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+
+`;
+
+const Button = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border:none;
+  
 `;

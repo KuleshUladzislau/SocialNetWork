@@ -1,29 +1,34 @@
 import userPhoto from "../../common/UserPhoto/userPhoto.png";
 import React from "react";
 import styled from "styled-components";
+import {useNavigate} from "react-router-dom";
+import {GlobalStyles} from "../../../App";
 
 
+type FriendsChats = {
+    id: number
+    name: string
+    photos: {
+        small: string
+        large: string
+    },
 
-
-type ChatWithFriends = {
-    id:number
-    name:string
-    photos:{
-        small:string
-        large:string
-    }
 }
 
-export const FriendsChats = (props:ChatWithFriends) => {
+export const FriendsChats = (props: FriendsChats) => {
 
-    const {name,photos} = props
+    const {name, photos, id} = props
+    const navigate = useNavigate()
+    const onClickHandler = () => {
+        navigate(`/dialogs/${id}`,{state:{name,photos:photos.small}})
+    }
 
 
     return (
-        <ChatWithFriendStyle>
+        <ChatWithFriendStyle onClick={onClickHandler}>
             <ChatWithFriendsContainer>
                 <PhotoContainer>
-                    <img src={photos.small ? photos.small :userPhoto} alt=""/>
+                    <img src={photos.small ? photos.small : userPhoto} alt=""/>
                 </PhotoContainer>
                 <MessageStyle>
                     <div>{name}</div>
@@ -35,10 +40,11 @@ export const FriendsChats = (props:ChatWithFriends) => {
 }
 
 
-const ChatWithFriendStyle = styled.div`
-  width: 600px;
+export const ChatWithFriendStyle = styled.div`
+
   height: 60px;
-  border: 1px solid red;
+  border-bottom:1px solid  rgba(0, 0, 0,20%);
+  width: 100%;
 
   :hover {
     cursor: pointer;
@@ -47,18 +53,19 @@ const ChatWithFriendStyle = styled.div`
 
 `
 
-const ChatWithFriendsContainer = styled.div`
+export const ChatWithFriendsContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
   justify-content: flex-start;
-
+  
   * {
     pointer-events: none;
   }
 `
 
-const PhotoContainer = styled.div`
+
+export const PhotoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -81,12 +88,11 @@ const PhotoContainer = styled.div`
   }
 `
 
-const MessageStyle = styled.div`
+export const MessageStyle = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   gap: 15px;
-  width: 500px;
   margin-left: 15px;
 
   * {

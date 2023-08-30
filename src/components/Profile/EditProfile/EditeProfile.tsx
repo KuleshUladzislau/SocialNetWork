@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Button, Checkbox, Input} from "antd";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import styled from "styled-components";
-import {ContactsType, useUpdateProfileInfoMutation} from "../api/apiQuery";
+import {ContactsType, useUpdateProfileInfoMutation} from "../../api/apiQuery";
 
 
 type EditeProfileFormType = {
