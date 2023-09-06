@@ -1,8 +1,9 @@
-import {useAppDispatch} from "components/hook/hooks";
-import {deletePost} from "components/redux/profileSlice";
+
 import styled from "styled-components";
 import Card from "antd/es/card/Card";
 import React from "react";
+import {useAppDispatch} from "app/hook/useDebounse";
+import {profileActions} from "features/ProfilePage/profileSlice";
 
 type ProfilePostType = {
     id:string
@@ -13,7 +14,7 @@ export const ProfilePost = (props:ProfilePostType) => {
     const {likes,title,id} = props
     const dispatch = useAppDispatch()
     const deletePostHandler = ()=>{
-        dispatch(deletePost({id}))
+        dispatch(profileActions.deletePost({id}))
     }
     return (
         <PostContainer>

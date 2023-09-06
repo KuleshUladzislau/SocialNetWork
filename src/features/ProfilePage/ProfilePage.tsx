@@ -1,9 +1,8 @@
 import React from 'react';
 import {useParams} from "react-router-dom";
-
-import {ProfileInfo} from "../../components/Profile/ProfileInfo/ProfileInfo";
 import styled from "styled-components";
 import {useAppSelector} from "app/hook/useDebounse";
+import {ProfileInfo} from "features/ProfilePage/ProfileInfo/ProfileInfo";
 
 
 

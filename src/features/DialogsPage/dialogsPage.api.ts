@@ -1,10 +1,11 @@
-import {friendMessageActions} from "components/Dialogs/FriendsChats/ChatPage/chatPageSlice";
+
 import {createApi} from "@reduxjs/toolkit/dist/query/react";
 import {axiosBaseQuery} from "common/api";
+import {dialogsPageActions, dialogsPageReducer} from "features/DialogsPage/dialogsSlice";
 
 
 export const dialogsApi = createApi({
-    reducerPath: 'socialNetWork',
+    reducerPath: 'dialogsApi',
     tagTypes: ['Users', 'Profile', 'Dialogs'],
     baseQuery: axiosBaseQuery({
         baseUrl: 'https://social-network.samuraijs.com/api/1.0/',
@@ -22,10 +23,10 @@ export const dialogsApi = createApi({
                     const {data} = await queryFulfilled
                     const {totalCount, items} = data
                     if (page === 1) {
-                        dispatch(friendMessageActions.setFriendMessages(items))
-                        dispatch(friendMessageActions.setTotalCount({totalCount}))
+                        dispatch(dialogsPageActions.setFriendMessages(items))
+                        dispatch(dialogsPageActions.setTotalCount({totalCount}))
                     } else {
-                        dispatch(friendMessageActions.setMessageAfterScroll(items))
+                        dispatch(dialogsPageActions.setMessageAfterScroll(items))
                     }
                 } catch (err) {
 

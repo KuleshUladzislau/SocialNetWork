@@ -1,10 +1,10 @@
 import React, {ChangeEvent, useState} from 'react';
-import {useAppDispatch, useAppSelector} from "components/hook/hooks";
 import {ProfilePost} from "features/ProfilePage/ProfilePost/MyPost/ProfilePost";
 import {Button, Input} from "antd";
 import styled from "styled-components";
-import {addPost} from "features/ProfilePage/profileSlice";
 import {selectProfilePosts} from "features/ProfilePage/profileSelectors";
+import {useAppDispatch, useAppSelector} from "app/hook/useDebounse";
+import {profileActions} from "features/ProfilePage/profileSlice";
 
 
 
@@ -28,7 +28,7 @@ export const ProfilePosts = () => {
     }
     const onClickHandler = () => {
         if (title.length !== 0) {
-            dispatch(addPost({title}))
+            dispatch(profileActions.addPost({title}))
             setTitle('')
         }
     }

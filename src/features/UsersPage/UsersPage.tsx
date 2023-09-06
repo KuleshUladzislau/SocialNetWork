@@ -1,18 +1,17 @@
-import React, {ChangeEvent, useEffect, useState,} from 'react';
-import {useAppDispatch, useAppSelector, useDebounce} from "../hook/hooks";
-import {useGetUsersQuery} from "../api/apiQuery";
-import styled from "styled-components";
+
+import {ChangeEvent, useEffect, useState} from "react";
+import {useAppDispatch, useAppSelector, useDebounce} from "app/hook/useDebounse";
 import {Input} from "antd";
-import {changeUsersPage, changeUsersPageSize, setUsersTotalCount} from "../redux/usersSlice";
-import {Users} from "./Users/Users";
-
-
+import styled from "styled-components";
+import {userPageSelector} from "features/UsersPage/usersPage.selectors";
+import {useGetUsersQuery} from "features/UsersPage/userPage.api";
+import {usersActions} from "features/UsersPage/usersSlice";
+import {Users} from "features/UsersPage/Users/Users";
 
 export const UsersPage = () => {
     const dispatch = useAppDispatch()
-    const page = useAppSelector(state => state.users.page)
-    const pageSize = useAppSelector(state => state.users.pageSize)
-    const totalCount = useAppSelector(state => state.users.totalCount)
+    const {page,pageSize,totalCount} = useAppSelector(userPageSelector)
+
     const [nameUser, setSearchNameUser] = useState('')
     const debouncedValue = useDebounce(nameUser, 500)
 
@@ -24,7 +23,7 @@ export const UsersPage = () => {
 
     useEffect(() => {
         if (data) {
-            dispatch(setUsersTotalCount({totalCount: data.totalCount}))
+            dispatch(usersActions.setUsersTotalCount({totalCount: data.totalCount}))
         }
     }, [data])
 
@@ -38,8 +37,8 @@ export const UsersPage = () => {
     }
 
     const onChangePageHandler = (page: number, pageSize: number) => {
-        dispatch(changeUsersPage({page}))
-        dispatch(changeUsersPageSize({pageSize}))
+        dispatch(usersActions.changeUsersPage({page}))
+        dispatch(usersActions.changeUsersPageSize({pageSize}))
     }
 
     return (
@@ -57,7 +56,7 @@ export const UsersPage = () => {
                     totalCount={totalCount}
                     changePageSettings={onChangePageHandler}
 
-                    />
+                />
             </UsersContainer>
 
 
@@ -96,4 +95,3 @@ export const FormContainer = styled.div`
   align-items: center;
 
 `
-

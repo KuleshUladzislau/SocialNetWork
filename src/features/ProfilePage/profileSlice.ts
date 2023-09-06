@@ -41,4 +41,4 @@ const profileSlice = createSlice({
 })
 
 export const profileReducer = profileSlice.reducer
-export const {addPost, deletePost} = profileSlice.actions
+export const profileActions = profileSlice.actions

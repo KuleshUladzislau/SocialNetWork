@@ -1,10 +1,10 @@
 import {useAppDispatch, useAppSelector, useDebounce} from "app/hook/useDebounse";
 import React, {ChangeEvent, useEffect, useState} from "react";
 import {useGetUsersQuery} from "features/UsersPage/userPage.api";
-import {FormContainer, UserPageContainer} from "features/UsersPage/usersPage";
+import {FormContainer, UserPageContainer, UsersContainer} from "features/UsersPage/UsersPage";
 import {Users} from "features/UsersPage/Users/Users";
 import {Input} from "antd";
-import {UsersContainer} from "components/Users/UsersPage";
+
 import {myFriendsActions} from "features/MyFriendsPage/myFriendsSlice";
 import {
     selectFriendsPage,

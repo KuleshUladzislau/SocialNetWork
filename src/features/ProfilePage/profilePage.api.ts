@@ -5,8 +5,8 @@ import {ResponseType} from "common/types";
 
 
 export const profileApi = createApi({
-    reducerPath: 'socialNetWork',
-    tagTypes: ['Users', 'Profile', 'Dialogs'],
+    reducerPath: 'profileApi',
+    tagTypes: ['Profile'],
     baseQuery: axiosBaseQuery({
         baseUrl: 'https://social-network.samuraijs.com/api/1.0/',
     }),
@@ -65,7 +65,7 @@ export const profileApi = createApi({
                 method: 'GET',
                 params: {friend, term}
             }),
-            providesTags: ['Users']
+
         }),
 
     })

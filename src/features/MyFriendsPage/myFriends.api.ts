@@ -3,8 +3,8 @@ import {createApi} from "@reduxjs/toolkit/query/react";
 
 
 export const myFriendsApi = createApi({
-    reducerPath: 'socialNetWork',
-    tagTypes: ['Users', 'Profile', 'Dialogs'],
+    reducerPath: 'myFriends',
+    tagTypes: ['Users'],
     baseQuery: axiosBaseQuery({
         baseUrl: 'https://social-network.samuraijs.com/api/1.0/',
     }),

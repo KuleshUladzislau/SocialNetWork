@@ -2,19 +2,17 @@ import React, {useEffect, useState} from "react";
 import {Breadcrumb, Layout, Menu, Spin, theme} from 'antd'
 import {UserOutlined} from "@ant-design/icons";
 import {NavLink, Route, Routes, useNavigate} from "react-router-dom";
-import {Header as MyHeader} from 'components/Header/Header'
-import {useMeQuery} from "components/api/apiQuery";
-import {ResultCodes} from "components/api/api";
-import {Profile} from "components/Profile/Profile";
-import {UsersPage} from "components/Users/UsersPage";
-import {MyFriends} from "components/Users/MyFriends/MyFriends";
-import {Login} from "components/login/Login";
-import {useAppSelector} from "components/hook/hooks";
-import {Dialogs} from "components/Dialogs/Dialogs";
-import {ChatPage} from "components/Dialogs/FriendsChats/ChatPage/ChatPage";
-import styled from "styled-components";
-import {createGlobalStyle} from "styled-components";
-import {MyLayout} from "components/Layout/Layout";
+import {MyLayout} from "common/components/Layout/Layout";
+import {ProfilePage} from "features/ProfilePage/ProfilePage";
+import UsersPage from "features/UsersPage/UsersPage";
+import {MyFriendsPage} from "features/MyFriendsPage/MyFriendsPage";
+import {Dialogs} from "features/DialogsPage/DIalogsPage";
+import {ChatPage} from "features/DialogsPage/ChatPage/ChatPage";
+import {Login} from "features/Login/Login";
+import styled, {createGlobalStyle} from "styled-components";
+import {useMeQuery} from "features/Login/auth.api";
+import {ResultCode} from "common/enums";
+
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -24,16 +22,16 @@ const App = () => {
 
     const {data, isFetching} = useMeQuery()
     const navigate = useNavigate()
-    const isAuth = useAppSelector(state => state.auth.isAuth)
+    // const isAuth = useAppSelector(state => state.auth.isAuth)
 
 
-    // useEffect(() => {
-    //     if (data?.resultCode === ResultCodes.Success) {
-    //         navigate('/')
-    //     } else {
-    //         navigate('/login')
-    //     }
-    // }, [data])
+    useEffect(() => {
+        if (data?.resultCode === ResultCode.Success) {
+            navigate('/')
+        } else {
+            navigate('/login')
+        }
+    }, [data])
 
 
 
@@ -47,11 +45,11 @@ const App = () => {
 
         <Routes>
             <Route path={'/'} element={<MyLayout/>}>
-                <Route path={'/profile'} element={<Profile/>}/>
-                <Route path={'/'} element={<Profile/>}/>
-                <Route path={'/profile/:userId'} element={<Profile/>}/>
+                <Route path={'/profile'} element={<ProfilePage/>}/>
+                <Route path={'/'} element={<ProfilePage/>}/>
+                <Route path={'/profile/:userId'} element={<ProfilePage/>}/>
                 <Route path={'/users'} element={<UsersPage/>}/>
-                <Route path={'/friends'} element={<MyFriends/>}/>
+                <Route path={'/friends'} element={<MyFriendsPage/>}/>
                 <Route path={'/dialogs'} element={<Dialogs/>}/>
                 <Route path={'/dialogs/:userId'} element={<ChatPage/>}/>
                 <Route path={'/login'} element={<Login/>}/>

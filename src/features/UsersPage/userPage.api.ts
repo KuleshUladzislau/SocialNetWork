@@ -1,10 +1,10 @@
-import {ResponseType} from "components/api/api";
+import {ResponseType} from 'common/types/index'
 import {createApi} from "@reduxjs/toolkit/dist/query/react";
 import {axiosBaseQuery} from "common/api";
 
 
 export const usersApi = createApi({
-    reducerPath: 'socialNetWork',
+    reducerPath: 'usersApi',
     tagTypes: ['Users', 'Profile', 'Dialogs'],
     baseQuery: axiosBaseQuery({
         baseUrl: 'https://social-network.samuraijs.com/api/1.0/',

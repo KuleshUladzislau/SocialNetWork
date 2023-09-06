@@ -5,8 +5,8 @@ import {NavLink, Outlet} from "react-router-dom";
 import styled from "styled-components";
 import {createGlobalStyle} from "styled-components";
 import {Header as MyHeader } from 'common/components/Header/Header'
-import {ProfilePage} from "features/ProfilePage/profilePage";
-import UsersPage from "features/UsersPage/usersPage";
+import {ProfilePage} from "features/ProfilePage/ProfilePage";
+import UsersPage from "features/UsersPage/UsersPage";
 import {MyFriendsPage} from "features/MyFriendsPage/MyFriendsPage";
 import {useAppSelector} from "app/hook/useDebounse";
 import {Dialogs} from "features/DialogsPage/DIalogsPage";

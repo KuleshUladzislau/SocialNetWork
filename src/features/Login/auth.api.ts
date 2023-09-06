@@ -3,8 +3,8 @@ import {axiosBaseQuery} from "common/api";
 import {ResponseType} from 'common/types/index'
 
 export const authApi = createApi({
-    reducerPath: 'socialNetWork',
-    tagTypes: ['Users', 'Profile', 'Dialogs'],
+    reducerPath: 'authApi',
+    tagTypes: ['Users'],
     baseQuery: axiosBaseQuery({
         baseUrl: 'https://social-network.samuraijs.com/api/1.0/',
     }),

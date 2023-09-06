@@ -1,5 +1,5 @@
 
-import {UsersContainer} from "features/UsersPage/usersPage";
+import {UsersContainer} from "features/UsersPage/UsersPage";
 import {Pagination} from "antd";
 import React from "react";
 import {User} from "features/UsersPage/User/User";

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import userPhoto from '/common/assets/img/userPhoto.png'
+import userPhoto from 'common/assets/img/userPhoto.png'
 import {useNavigate} from "react-router-dom";
 
 

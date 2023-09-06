@@ -1,10 +1,11 @@
 import React, {ChangeEvent, useState} from "react";
-import {useDebounce} from "components/hook/hooks";
-import {useMyFriendsQuery} from "components/api/apiQuery";
-import {FormContainer} from "components/Users/UsersPage";
+
 import {Input} from "antd";
 import styled from "styled-components";
 import {FriendsChats} from "features/DialogsPage/FriendsChats/FriendsChats";
+import {useDebounce} from "app/hook/useDebounse";
+import {useMyFriendsQuery} from "features/UsersPage/userPage.api";
+import {FormContainer} from "features/UsersPage/UsersPage";
 
 export const AllChatsPage = () => {
 
