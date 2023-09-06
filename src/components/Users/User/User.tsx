@@ -35,7 +35,7 @@ export const User =(props: UserType) => {
 
 
     return (
-        <UserContainer key={userId} className={style.user}>
+        <UserContainer key={userId} >
             <NameStyle>{name}</NameStyle>
             <UserImage>
                 <NavLink to={`/profile/${userId}`}>

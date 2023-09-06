@@ -5,7 +5,6 @@ import {v1} from "uuid";
 type PostType = {
     id: string
     title: string
-
     likes: number
 }
 

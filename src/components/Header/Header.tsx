@@ -12,7 +12,7 @@ import {ResultCodes} from "../api/api";
 
 export const Header = () => {
 
-     const isAuth = useAppSelector(state => state.auth.isAuth)
+    const isAuth = useAppSelector(state => state.auth.isAuth)
 
     const dispath = useAppDispatch()
     const navigate = useNavigate()
@@ -23,11 +23,11 @@ export const Header = () => {
 
     useEffect(() => {
 
-        if(data?.resultCode === ResultCodes.Success){
-            const {id,email,login} = data.data
-            dispath(setAuthorizedUser({userId:id,email,login,isAuth:true}))
+        if (data?.resultCode === ResultCodes.Success) {
+            const {id, email, login} = data.data
+            dispath(setAuthorizedUser({userId: id, email, login, isAuth: true}))
             navigate('/profile')
-        }else {
+        } else {
             navigate('/login')
         }
 
@@ -37,16 +37,16 @@ export const Header = () => {
     const onclickHandler = () => {
         logout()
         navigate('/login')
-        dispath(setAuthorizedUser({userId:0,email:'',login:'',isAuth:false}))
+        dispath(setAuthorizedUser({userId: 0, email: '', login: '', isAuth: false}))
     }
 
     return (
-        <HeaderStyle >
-            <div style={{color:'black',marginLeft:'50px'}}>
+        <HeaderStyle>
+            <div style={{color: 'black', marginLeft: '50px'}}>
                 {userInfo && <div>{userInfo.login}</div>}
             </div>
-            <div  >
-                {isAuth && <Button  type="link" onClick={onclickHandler}>Logout</Button>}
+            <div>
+                {isAuth && <Button type="link" onClick={onclickHandler}>Logout</Button>}
             </div>
 
         </HeaderStyle>

@@ -123,11 +123,11 @@ export const socialNetWorkApi = createApi({
             }),
             invalidatesTags: ['Users']
         }),
-        myFriends: build.query<UsersResponseType, { friend: boolean }>({
-            query: ({friend}) => ({
+        myFriends: build.query<UsersResponseType, { friend: boolean,term?:string }>({
+            query: ({friend,term}) => ({
                 url: `users?count=20`,
                 method: 'GET',
-                params: {friend}
+                params: {friend,term}
             }),
             providesTags: ['Users']
         }),

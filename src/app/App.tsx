@@ -2,19 +2,19 @@ import React, {useEffect, useState} from "react";
 import {Breadcrumb, Layout, Menu, Spin, theme} from 'antd'
 import {UserOutlined} from "@ant-design/icons";
 import {NavLink, Route, Routes, useNavigate} from "react-router-dom";
-import {Header as MyHeader} from '../src/components/Header/Header'
-import {useMeQuery} from "./components/api/apiQuery";
-import {ResultCodes} from "./components/api/api";
-import {Profile} from "./components/Profile/Profile";
-import {UsersPage} from "./components/Users/UsersPage";
-import {MyFriends} from "./components/Users/MyFriends/MyFriends";
-import {Login} from "./components/login/Login";
-import {useAppSelector} from "./components/hook/hooks";
-import {Dialogs} from "./components/Dialogs/Dialogs";
-import {ChatPage} from "./components/Dialogs/FriendsChats/ChatPage/ChatPage";
+import {Header as MyHeader} from 'components/Header/Header'
+import {useMeQuery} from "components/api/apiQuery";
+import {ResultCodes} from "components/api/api";
+import {Profile} from "components/Profile/Profile";
+import {UsersPage} from "components/Users/UsersPage";
+import {MyFriends} from "components/Users/MyFriends/MyFriends";
+import {Login} from "components/login/Login";
+import {useAppSelector} from "components/hook/hooks";
+import {Dialogs} from "components/Dialogs/Dialogs";
+import {ChatPage} from "components/Dialogs/FriendsChats/ChatPage/ChatPage";
 import styled from "styled-components";
 import {createGlobalStyle} from "styled-components";
-import {MyLayout} from "./components/Layout/Layout";
+import {MyLayout} from "components/Layout/Layout";
 
 const {Header, Content, Footer, Sider} = Layout;
 

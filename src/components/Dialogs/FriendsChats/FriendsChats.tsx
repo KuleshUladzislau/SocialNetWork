@@ -1,8 +1,10 @@
 import userPhoto from "../../common/UserPhoto/userPhoto.png";
-import React from "react";
+import React, {ChangeEvent, useState} from "react";
 import styled from "styled-components";
 import {useNavigate} from "react-router-dom";
-import {GlobalStyles} from "../../../App";
+import {GlobalStyles} from "app/App";
+import {Input} from "antd";
+import {FormContainer} from "../../Users/UsersPage";
 
 
 type FriendsChats = {
@@ -22,10 +24,15 @@ export const FriendsChats = (props: FriendsChats) => {
     const onClickHandler = () => {
         navigate(`/dialogs/${id}`,{state:{name,photos:photos.small}})
     }
-
+    const [nameUser, setSearchNameUser] = useState('')
+    const onChangeSearchUserHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        let userName = e.currentTarget.value
+        setSearchNameUser(userName)
+    }
 
     return (
         <ChatWithFriendStyle onClick={onClickHandler}>
+
             <ChatWithFriendsContainer>
                 <PhotoContainer>
                     <img src={photos.small ? photos.small : userPhoto} alt=""/>

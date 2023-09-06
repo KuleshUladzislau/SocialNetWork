@@ -1,7 +1,7 @@
 import React from 'react';
 import {useAppSelector} from "../../../hook/hooks";
 import {useGetDialogsQuery} from "../../../api/apiQuery";
-import {GlobalStyles} from "../../../../App";
+import {GlobalStyles} from "app/App";
 import {ChatsContainer, DialogsContainer, ParentContainer} from "../../Dialogs";
 import {ActiveChats} from "../ActiveChats";
 import {Simulate} from "react-dom/test-utils";

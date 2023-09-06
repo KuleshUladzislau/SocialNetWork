@@ -5,7 +5,7 @@ import {Message} from "./Message/Message";
 import styled from "styled-components";
 import {Button, Input, Spin} from "antd";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
-import {GlobalStyles} from "../../../../App";
+import {GlobalStyles} from "app/App";
 import {useAppDispatch, useAppSelector} from "../../../hook/hooks";
 import {friendMessageActions} from "./chatPageSlice";
 import {Simulate} from "react-dom/test-utils";
@@ -141,6 +141,7 @@ export const ChatPage = React.memo(() => {
         const scrollTop = messagesRef.current!.scrollTop;
 
         if (scrollTop === 0) {
+
             setShouldLoadMoreMessages(true);
         }
 

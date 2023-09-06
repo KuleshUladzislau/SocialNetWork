@@ -79,11 +79,3 @@ export const Users = (props: Users) => {
     );
 };
 
-const FormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 400px;
-  justify-content: center;
-  align-items: center;
-
-`
