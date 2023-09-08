@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/SocialNetWork/static/css/main.ea0cb664.css",
-    "main.js": "/SocialNetWork/static/js/main.07ba9346.js",
+    "main.js": "/SocialNetWork/static/js/main.ca843320.js",
     "static/media/twitterIcon.svg": "/SocialNetWork/static/media/twitterIcon.9665ef3f8f7c31a2c704ff578b144a4b.svg",
     "static/media/icons8-instagram.svg": "/SocialNetWork/static/media/icons8-instagram.89e2ef42af3aafc7f9675cc94448a64a.svg",
     "static/media/icons8-github.svg": "/SocialNetWork/static/media/icons8-github.adb057e9b81365542cdfd2327c007aa2.svg",
@@ -10,10 +10,10 @@
     "static/media/icons8-facebook.svg": "/SocialNetWork/static/media/icons8-facebook.743e8a31adbff09041bf593950fcfcce.svg",
     "static/media/icons8-vk.svg": "/SocialNetWork/static/media/icons8-vk.86345a35f765cd9eef1c714a81de36ae.svg",
     "main.ea0cb664.css.map": "/SocialNetWork/static/css/main.ea0cb664.css.map",
-    "main.07ba9346.js.map": "/SocialNetWork/static/js/main.07ba9346.js.map"
+    "main.ca843320.js.map": "/SocialNetWork/static/js/main.ca843320.js.map"
   },
   "entrypoints": [
     "static/css/main.ea0cb664.css",
-    "static/js/main.07ba9346.js"
+    "static/js/main.ca843320.js"
   ]
 }
