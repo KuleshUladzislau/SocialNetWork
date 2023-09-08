@@ -4,16 +4,16 @@ import {useGetUsersQuery} from "features/UsersPage/userPage.api";
 import {FormContainer, UserPageContainer, UsersContainer} from "features/UsersPage/UsersPage";
 import {Users} from "features/UsersPage/Users/Users";
 import {Input} from "antd";
-
 import {myFriendsActions} from "features/MyFriendsPage/myFriendsSlice";
 import {
     selectFriendsPage,
     selectFriendsPageSize,
     selectFriendsPageTotalCount
 } from "features/MyFriendsPage/myFriends.selectors";
+import {authHook} from "app/hook/authHook";
 
 
-export const MyFriendsPage = () => {
+const MyFriends = () => {
     const dispatch = useAppDispatch()
     const page = useAppSelector(selectFriendsPage)
     const pageSize = useAppSelector(selectFriendsPageSize)
@@ -21,7 +21,8 @@ export const MyFriendsPage = () => {
     const [nameFriends, setSearchFriends] = useState('')
     const debouncedValue = useDebounce(nameFriends, 500)
     const {
-        data
+        data,
+
     } = useGetUsersQuery({page, pageSize, term: debouncedValue, friend: true})
 
 
@@ -66,3 +67,5 @@ export const MyFriendsPage = () => {
 
     );
 };
+
+export const MyFriendsPage = authHook()(MyFriends)

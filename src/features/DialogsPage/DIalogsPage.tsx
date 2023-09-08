@@ -4,9 +4,10 @@ import TabPane from "antd/lib/tabs/TabPane";
 import styled from "styled-components";
 import {AllChatsPage} from "features/DialogsPage/AllChatsPage/AllChatsPage";
 import {ActiveChatPage} from "features/DialogsPage/ActiveChatsPage/ActiveChatsPage";
+import {authHook} from "app/hook/authHook";
 
 
-export const Dialogs = () => {
+ const Dialogs = () => {
 
 
     return (
@@ -31,6 +32,9 @@ export const Dialogs = () => {
     );
 };
 
+
+export const DialogsPage = authHook()(Dialogs)
+
 export const DialogsContainer = styled.div`
   display: flex;
   position: relative;
@@ -39,6 +43,7 @@ export const DialogsContainer = styled.div`
   flex-direction: column;
   margin-left: 10px;
   background: white;
+  border-radius: 25px;
 `;
 export const ChatsContainer = styled.div`
   display: flex;
@@ -51,17 +56,20 @@ export const ChatsContainer = styled.div`
   &::-webkit-scrollbar {
     width: 4px;
     background-color: #f0f0f0;
+  
   }
 
 
   &::-webkit-scrollbar-thumb {
     background-color: #d3d3d3;
     border-radius: 4px;
+
   }
 
 
   &::-webkit-scrollbar-thumb:hover {
     background-color: #555;
+   
   }
 `;
 

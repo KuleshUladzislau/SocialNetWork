@@ -1,45 +1,45 @@
-import React, {useEffect, useState} from "react";
-import {Breadcrumb, Layout, Menu, Spin, theme} from 'antd'
-import {UserOutlined} from "@ant-design/icons";
-import {NavLink, Route, Routes, useNavigate} from "react-router-dom";
+import React, {useEffect} from "react";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import {MyLayout} from "common/components/Layout/Layout";
 import {ProfilePage} from "features/ProfilePage/ProfilePage";
-import UsersPage from "features/UsersPage/UsersPage";
 import {MyFriendsPage} from "features/MyFriendsPage/MyFriendsPage";
-import {Dialogs} from "features/DialogsPage/DIalogsPage";
+import {DialogsPage} from "features/DialogsPage/DIalogsPage";
 import {ChatPage} from "features/DialogsPage/ChatPage/ChatPage";
 import {Login} from "features/Login/Login";
 import styled, {createGlobalStyle} from "styled-components";
-import {useMeQuery} from "features/Login/auth.api";
+import { useMeQuery} from "features/Login/auth.api";
+import {useAppDispatch, useAppSelector} from "app/hook/useDebounse";
+import {UsersPageWithHook} from "features/UsersPage/UsersPage";
+import {authActions} from "features/Login/authSlice";
 import {ResultCode} from "common/enums";
-
-
-const {Header, Content, Footer, Sider} = Layout;
 
 
 const App = () => {
 
 
-    const {data, isFetching} = useMeQuery()
+    // const {data, isFetching} = useMeQuery()
+    const {data} = useMeQuery()
     const navigate = useNavigate()
-    // const isAuth = useAppSelector(state => state.auth.isAuth)
+    const dispatch = useAppDispatch()
+    const isAuth = useAppSelector(state => state.auth.isAuth)
 
 
     useEffect(() => {
+
         if (data?.resultCode === ResultCode.Success) {
-            navigate('/')
-        } else {
-            navigate('/login')
+            const {id, email, login} = data.data
+            dispatch(authActions.setAuthorizedUser({userId: id, email, login, isAuth: true}))
+            console.log('appRender')
         }
+
     }, [data])
 
 
+    //
+    // if (isFetching) {
+    //     return <Spin/>
+    // }
 
-
-
-    if (isFetching) {
-        return <Spin/>
-    }
 
     return (
 
@@ -48,11 +48,12 @@ const App = () => {
                 <Route path={'/profile'} element={<ProfilePage/>}/>
                 <Route path={'/'} element={<ProfilePage/>}/>
                 <Route path={'/profile/:userId'} element={<ProfilePage/>}/>
-                <Route path={'/users'} element={<UsersPage/>}/>
+                <Route path={'/users'} element={<UsersPageWithHook/>}/>
                 <Route path={'/friends'} element={<MyFriendsPage/>}/>
-                <Route path={'/dialogs'} element={<Dialogs/>}/>
+                <Route path={'/dialogs'} element={<DialogsPage/>}/>
                 <Route path={'/dialogs/:userId'} element={<ChatPage/>}/>
                 <Route path={'/login'} element={<Login/>}/>
+                <Route path={'*'} element={<div>PageNotFound</div>}/>
             </Route>
         </Routes>
 

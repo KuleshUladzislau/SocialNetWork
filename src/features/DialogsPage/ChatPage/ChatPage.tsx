@@ -26,6 +26,7 @@ export const ChatPage = React.memo(() => {
     const [
         friendMessage,
         {
+            data,
             isFetching,
         }
     ] =

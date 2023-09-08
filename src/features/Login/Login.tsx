@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import {Button, Checkbox, Input} from "antd";
-import React, {useEffect, useState} from "react";
+import React, { useState} from "react";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
-import {ResultCode} from 'common/enums/index'
-import {useLazyGetCaptchaQuery, useLoginMutation} from "features/Login/auth.api";
+import { useLazyGetCaptchaQuery,
+    useLoginMutation
+} from "features/Login/auth.api";
+import {GlobalStyles} from "app/App";
 
 type AuthorizedLoginValue = {
     email: string
@@ -15,25 +17,12 @@ type AuthorizedLoginValue = {
 
 
 export const Login = () => {
+    const [loading, setLoading] = useState(false)
+
 
     const navigate = useNavigate()
-    const [login, {data}] = useLoginMutation()
-    const [captcha,{data:captchaUrl}] = useLazyGetCaptchaQuery()
-    const [loading,setLoading] = useState(false)
-
-
-
-    useEffect(() => {
-        if (data?.resultCode === ResultCode.Success) {
-            navigate(`/profile`)
-        }
-        if(data?.resultCode === ResultCode.Captcha){
-            captcha()
-        }
-    }, [data])
-
-
-
+    const [login, {data: loginData}] = useLoginMutation();
+    const [getCaptha, {data}] = useLazyGetCaptchaQuery()
 
 
     const {
@@ -57,22 +46,38 @@ export const Login = () => {
     const onSubmit: SubmitHandler<AuthorizedLoginValue> = (data) => {
         setLoading(true)
         const {email, password, rememberMe, captcha} = data
-        login({email, password, rememberMe, captcha}).finally(()=>setLoading(false))
+        login({email, password, rememberMe, captcha})
+            .unwrap()
+            .then((data) => {
+                if (data.resultCode === 0) {
+                    navigate(`/profile`)
+                }
+                if (data.resultCode === 10) {
+                    getCaptha()
+                }
+            })
+            .finally(() => {
+                setLoading(false)
+            })
+
+
     }
+
 
     return (
 
         <LoginContainer>
 
             <FormStyle onSubmit={handleSubmit(onSubmit)}>
-                <LoginTitleStyle >Login</LoginTitleStyle>
+                <GlobalStyles overflow='hidden'/>
+                <LoginTitleStyle>Login</LoginTitleStyle>
 
                 <LabelStyle htmlFor={'email'}>Email</LabelStyle>
                 <Controller
                     render={({field, fieldState: {error}}) =>
                         <div>
                             <Input {...field} />
-                            {error && <div style={{color:'red'}}>{error.message}</div>}
+                            {error && <div style={{color: 'red'}}>{error.message}</div>}
                         </div>}
                     name={'email'}
                     control={control}
@@ -91,12 +96,12 @@ export const Login = () => {
                     name={'password'}
                     control={control}
                     rules={{
-                        required:true
+                        required: true
                     }}
                 />
 
 
-                <div style={{marginTop: '10px',textAlign:'center',cursor:'pointer'}}>
+                <div style={{marginTop: '10px', textAlign: 'center', cursor: 'pointer'}}>
                     <LabelStyle htmlFor={'rememberMe'}>Remember Me</LabelStyle>
                     <Controller
                         render={({field}) => <Checkbox id='rememberMe'  {...field} />}
@@ -107,11 +112,11 @@ export const Login = () => {
                 <div style={{textAlign: 'center', marginTop: '10px'}}>
                     <Button loading={loading} type="primary" htmlType='submit'>login</Button>
                 </div>
-                {data?.messages && <ErrorMessageStyle>{data.messages}</ErrorMessageStyle>}
-                {captchaUrl && <FieldContainer>
-                    <img src={captchaUrl.url} alt='captcha'/>
+                {loginData?.messages && <ErrorMessageStyle>{loginData.messages}</ErrorMessageStyle>}
+                {data && <FieldContainer>
+                    <img src={data?.url} alt='captcha'/>
                     <Controller
-                        render={({field})=>
+                        render={({field}) =>
                             <Input {...field} id="captcha" name="captcha" type='captcha' placeholder="captcha"/>}
                         name={'captcha'}
                         control={control}
@@ -144,6 +149,7 @@ const FormStyle = styled.form`
   min-height: 300px;
   width: 300px;
   border-radius: 25px;
+  background: white;
 
 `
 
@@ -157,7 +163,8 @@ const LabelStyle = styled.label`
 
 const LoginTitleStyle = styled.h2`
   text-align: center;
-  font-size: 25px;
+  font-size: 30px;
+  color: cornflowerblue;
 `
 
 const ErrorMessageStyle = styled.div`

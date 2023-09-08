@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
 import {useDeleteMessageMutation} from "features/DialogsPage/dialogsPage.api";
+import tick from 'features/DialogsPage/assets/tiksImg/tick.png'
+import doubleTick from 'features/DialogsPage/assets/tiksImg/2Ticks.png'
 
 
 
@@ -18,10 +20,10 @@ export type Message = {
 
 }
 export const Message = (props: Message) => {
-    const {body, addedAt, meMessage,id,} = props
+    const {body, addedAt, meMessage,id,viewed} = props
     const [deleteMessage,data] = useDeleteMessageMutation()
 
-
+    const isViewed = viewed ? doubleTick : tick
 
 
     const dateObject = new Date(addedAt);
@@ -47,9 +49,18 @@ export const Message = (props: Message) => {
 
         <MessageContainer background={meMessage ? 'rgb(126,185,238)' : '#C0C0C0'}
                           position={meMessage ? 'right' : 'left'}>
-            <MessageStyle>{body}</MessageStyle>
+            <MessageStyle>
+                {body}
+            </MessageStyle>
+            <div>
+                {/*<img style={{width: '15px'}} src={tick} alt=""/>*/}
+
+            </div>
             {/*<button onClick={onClickDeleteMessageHandler}>x</button>*/}
-            <DateStyle>{formatHour}</DateStyle>
+            <DateStyle>
+                {formatHour}
+                <TicksStyle  src={isViewed} alt=""/>
+            </DateStyle>
         </MessageContainer>
 
     )
@@ -99,10 +110,17 @@ const MessageStyle = styled.div`
 
 
 const DateStyle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   bottom: 5px;
   right: 5px;
-  
   white-space: nowrap;
-  
+`
+
+const TicksStyle = styled.img`
+  width: 20px;
+  margin-bottom: 2px;
+  margin-left:5px;
 `

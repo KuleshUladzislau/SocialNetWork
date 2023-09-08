@@ -14,7 +14,6 @@ import styled from "styled-components";
 import Upload from "antd/es/upload/Upload";
 
 
-
 type ProfileInfoPropsType = {
     userId: number
     authorizedUserId: number
@@ -29,8 +28,9 @@ export const ProfileInfo = ({userId, authorizedUserId}: ProfileInfoPropsType) =>
     const photos = data && data.photos
     const fullName = data && data.fullName
     const aboutMe = data && data.aboutMe
-    const viewAuthorizedUser = authorizedUserId === userId
+    const isAuthorizedUser = authorizedUserId === userId
     const [uploadPhoto] = useUploadPhotoMutation()
+
     useEffect(() => {
         if (userId !== 0) {
             getProfile({userId})
@@ -47,12 +47,9 @@ export const ProfileInfo = ({userId, authorizedUserId}: ProfileInfoPropsType) =>
         if (event.file) {
             const formData = new FormData();
             formData.append('image', event.file.originFileObj as Blob);
-
             uploadPhoto(formData);
         }
     };
-
-
 
 
     return (
@@ -61,17 +58,17 @@ export const ProfileInfo = ({userId, authorizedUserId}: ProfileInfoPropsType) =>
             <ProfileMain>
                 <PhotoImgProfile>
                     <ProfilePhoto src={photos?.small === null ? userPhoto : photos?.large} alt="ProfilePhoto"/>
-
-                    <UploadStyle onChange={uploadPhotoHandler} showUploadList={false}  >
-                        <UploadPhoto>Upload Photo</UploadPhoto>
-                    </UploadStyle>
+                    {isAuthorizedUser &&
+                        <UploadStyle onChange={uploadPhotoHandler} showUploadList={false}>
+                            <UploadPhoto>Upload Photo</UploadPhoto>
+                        </UploadStyle>
+                    }
                 </PhotoImgProfile>
                 <ProfileUserInfo>
                     <h3>{fullName}</h3>
-
                     <EditeProfileStyle>
                         {
-                            viewAuthorizedUser &&
+                            isAuthorizedUser &&
                             <Button style={{fontSize: '20px', color: "black"}} type={'link'}
                                     onClick={onActiveModalHandler}>edite
                                 profile</Button>
@@ -94,7 +91,7 @@ export const ProfileInfo = ({userId, authorizedUserId}: ProfileInfoPropsType) =>
                           style={{borderRadius: '25px', marginTop: '20px'}}>
                         {data && <Contacts contacts={data.contacts}/>}
                     </Card>
-                    <ProfileFriendsCard/>
+                    {isAuthorizedUser && <ProfileFriendsCard/>}
                 </div>
 
             </AboutMeBlock>
@@ -117,11 +114,6 @@ export const ProfileInfo = ({userId, authorizedUserId}: ProfileInfoPropsType) =>
 };
 
 
-
-
-
-
-
 const ProfileMain = styled.div`
   display: flex;
   position: relative;
@@ -140,7 +132,6 @@ const ProfileMain = styled.div`
 `
 
 
-
 const AboutMeBlock = styled.div`
   display: flex;
   flex-direction: row;
@@ -155,25 +146,23 @@ const PhotoImgProfile = styled.div`
   flex-direction: row;
   width: 100%;
   border-radius: 25px;
-  
 
- 
+
   &:hover button {
     opacity: 1;
   }
- 
- 
-`;
 
+
+`;
 
 
 const UploadStyle = styled(Upload)`
   display: flex;
   position: absolute;
-  top:-130px;
+  top: -130px;
   left: 130px;
   z-index: 2;
-  
+
 
 
 `
@@ -196,8 +185,8 @@ const UploadPhoto = styled(Button)`
   transform: translate(-50%, -50%);
   opacity: 0;
   transition: opacity 0.3s ease;
-  
- 
+
+
 `
 
 

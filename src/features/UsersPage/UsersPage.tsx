@@ -1,4 +1,3 @@
-
 import {ChangeEvent, useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector, useDebounce} from "app/hook/useDebounse";
 import {Input} from "antd";
@@ -7,18 +6,19 @@ import {userPageSelector} from "features/UsersPage/usersPage.selectors";
 import {useGetUsersQuery} from "features/UsersPage/userPage.api";
 import {usersActions} from "features/UsersPage/usersSlice";
 import {Users} from "features/UsersPage/Users/Users";
+import {authHook} from "app/hook/authHook";
 
-export const UsersPage = () => {
+
+const UsersPage = () => {
     const dispatch = useAppDispatch()
-    const {page,pageSize,totalCount} = useAppSelector(userPageSelector)
+    const {page, pageSize, totalCount} = useAppSelector(userPageSelector)
 
     const [nameUser, setSearchNameUser] = useState('')
     const debouncedValue = useDebounce(nameUser, 500)
 
 
-
     const {
-        data
+        data,
     } = useGetUsersQuery({page, pageSize, term: debouncedValue})
 
     useEffect(() => {
@@ -26,9 +26,6 @@ export const UsersPage = () => {
             dispatch(usersActions.setUsersTotalCount({totalCount: data.totalCount}))
         }
     }, [data])
-
-
-
 
 
     const onChangeSearchUserHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +37,7 @@ export const UsersPage = () => {
         dispatch(usersActions.changeUsersPage({page}))
         dispatch(usersActions.changeUsersPageSize({pageSize}))
     }
+
 
     return (
 
@@ -64,7 +62,8 @@ export const UsersPage = () => {
     );
 }
 
-export default UsersPage
+export const UsersPageWithHook = authHook()(UsersPage)
+
 
 export const UsersContainer = styled.div`
 
@@ -79,10 +78,12 @@ export const UsersContainer = styled.div`
 export const UserPageContainer = styled.div`
   display: flex;
   flex-direction: column;
+  min-height: 70vh;
   align-items: center;
   justify-content: center;
   margin-bottom: 30px;
-  border: 1px solid red;
+  background: white;
+  border-radius: 25px;
 
 `
 

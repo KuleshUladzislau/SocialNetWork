@@ -1,6 +1,6 @@
-import {AnyAction, applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
+import {AnyAction, combineReducers} from "redux";
 import  { ThunkDispatch} from "redux-thunk";
-import {configureStore, getDefaultMiddleware} from "@reduxjs/toolkit";
+import {configureStore} from "@reduxjs/toolkit";
 import {profileReducer} from 'features/ProfilePage/profileSlice'
 import  {usersPageReducer} from 'features/UsersPage/usersSlice'
 import {dialogsPageReducer} from "features/DialogsPage/dialogsSlice";
@@ -32,12 +32,14 @@ const rootReducer = combineReducers({
 export const store = configureStore({
     reducer:rootReducer,
     middleware:(getDefaultMiddleware)=>[
-        ...getDefaultMiddleware(),
-        dialogsApi.middleware,
-        myFriendsApi.middleware,
-        profileApi.middleware,
-        authApi.middleware,
-        usersApi.middleware
+        ...getDefaultMiddleware().concat(
+            dialogsApi.middleware,
+            myFriendsApi.middleware,
+            profileApi.middleware,
+            authApi.middleware,
+            usersApi.middleware
+        ),
+
 
 
     ],

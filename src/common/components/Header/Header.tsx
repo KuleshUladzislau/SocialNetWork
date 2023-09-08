@@ -23,9 +23,7 @@ export const Header = () => {
         if (data?.resultCode === ResultCode.Success) {
             const {id, email, login} = data.data
             dispath(authActions.setAuthorizedUser({userId: id, email, login, isAuth: true}))
-            navigate('/profile')
-        } else {
-            navigate('/login')
+
         }
 
     }, [data])

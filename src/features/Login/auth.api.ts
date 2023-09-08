@@ -1,10 +1,10 @@
 import {createApi} from "@reduxjs/toolkit/dist/query/react";
 import {axiosBaseQuery} from "common/api";
-import {ResponseType} from 'common/types/index'
+import {ResponseType} from 'common/types/common.types'
 
 export const authApi = createApi({
     reducerPath: 'authApi',
-    tagTypes: ['Users'],
+    tagTypes: ['Login'],
     baseQuery: axiosBaseQuery({
         baseUrl: 'https://social-network.samuraijs.com/api/1.0/',
     }),
@@ -21,7 +21,7 @@ export const authApi = createApi({
                 method: 'POST',
                 data: {email, password, rememberMe, captcha}
             }),
-            invalidatesTags: ['Users']
+            invalidatesTags: ['Login']
 
         }),
         me: build.query<ResponseType<Me>, void>({
@@ -29,7 +29,7 @@ export const authApi = createApi({
                 url: 'auth/me',
                 method: 'get',
             }),
-            providesTags: ['Users']
+            providesTags: ['Login']
 
 
         }),
@@ -40,7 +40,7 @@ export const authApi = createApi({
                 method: 'DELETE',
 
             }),
-            invalidatesTags: ['Users']
+            invalidatesTags: ['Login']
 
         }),
 
@@ -49,17 +49,32 @@ export const authApi = createApi({
                 url: 'security/get-captcha-url',
                 method: 'get'
             }),
+
+            providesTags:['Login']
         }),
+
+
+        getCaptchaTest: build.query<{ url: string }, void>({
+            query: () => ({
+                url: 'security/get-captcha-url',
+                method: 'get'
+            }),
+            providesTags:['Login']
+        }),
+
 
     })
 })
 
 export const
     {
+        useLazyGetCaptchaTestQuery,
+        useGetCaptchaQuery,
         useLoginMutation,
         useLazyGetCaptchaQuery,
         useMeQuery,
-        useLogoutMutation
+        useLogoutMutation,
+        useLazyMeQuery
 
     }
     = authApi

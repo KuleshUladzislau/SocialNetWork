@@ -2,18 +2,25 @@ import userPhoto from "common/assets/img/userPhoto.png";
 import Card from "antd/es/card/Card";
 import styled from "styled-components";
 import {Link, NavLink} from "react-router-dom";
-import {useGetUsersForProfilePageQuery} from "features/ProfilePage/profilePage.api";
+import { useLazyGetUsersForProfilePageQuery} from "features/ProfilePage/profilePage.api";
+import {useEffect} from "react";
 
 export const ProfileFriendsCard = () => {
 
 
     let randomPage = 1;
 
-    const {
-        data: friends
-    } = useGetUsersForProfilePageQuery({page: 1, pageSize: 3, term: '', friend: true})
 
 
+    // const {
+    //     data: friends
+    // } = useGetUsersForProfilePageQuery({page: 1, pageSize: 3, term: '', friend: true})
+
+    const [getFriends, {data: friends}] = useLazyGetUsersForProfilePageQuery()
+
+    useEffect(()=>{
+        getFriends({page: 1, pageSize: 3, term: '', friend: true})
+    },[])
 
     const mapedFriends = friends?.items.map(f =>
         <FriendsStyle to={`/profile/${f.id}`}>
@@ -60,7 +67,5 @@ const CardContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-
   gap: 10px;
-
 `

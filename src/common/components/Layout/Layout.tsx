@@ -1,19 +1,19 @@
-import React, {useEffect, useState} from "react";
-import { Layout, Menu, Spin, theme} from 'antd'
+import React from "react";
+import { Layout, Menu } from 'antd'
 import {UserOutlined} from "@ant-design/icons";
 import {NavLink, Outlet} from "react-router-dom";
 import styled from "styled-components";
 import {createGlobalStyle} from "styled-components";
 import {Header as MyHeader } from 'common/components/Header/Header'
 import {ProfilePage} from "features/ProfilePage/ProfilePage";
-import UsersPage from "features/UsersPage/UsersPage";
+import { UsersPageWithHook} from "features/UsersPage/UsersPage";
 import {MyFriendsPage} from "features/MyFriendsPage/MyFriendsPage";
 import {useAppSelector} from "app/hook/useDebounse";
-import {Dialogs} from "features/DialogsPage/DIalogsPage";
+import {DialogsPage} from "features/DialogsPage/DIalogsPage";
 
 
 
-const {Header, Content, Footer, Sider} = Layout;
+const {Header, Content, Sider} = Layout;
 
 
 export const MyLayout = () => {
@@ -40,7 +40,7 @@ export const MyLayout = () => {
             label: 'Users',
             title: 'Users',
             path: '/users',
-            component: UsersPage
+            component: UsersPageWithHook
         },
         {
             key: '3',
@@ -56,7 +56,7 @@ export const MyLayout = () => {
             label: 'Dialogs',
             title: 'Dialogs',
             path: '/dialogs',
-            component: Dialogs
+            component: DialogsPage
         },
 
 
@@ -67,9 +67,9 @@ export const MyLayout = () => {
     return (
 
         <Layout >
-            <Header style={{height: '60px', background: 'white', position: 'fixed', width: '100%', zIndex: '10'}}>
+            {isAuth && <Header style={{height: '60px', background: 'white', position: 'fixed', width: '100%', zIndex: '10'}}>
                 <MyHeader/>
-            </Header>
+            </Header>}
             <Container>
                 <Content
                     style={{

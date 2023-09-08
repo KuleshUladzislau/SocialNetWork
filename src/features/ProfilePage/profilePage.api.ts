@@ -65,6 +65,7 @@ export const profileApi = createApi({
                 method: 'GET',
                 params: {friend, term}
             }),
+            providesTags:['Profile']
 
         }),
 
@@ -77,7 +78,8 @@ export const
         useLazyGetProfileQuery,
         useUploadPhotoMutation,
         useUpdateProfileInfoMutation,
-        useGetUsersForProfilePageQuery
+        useGetUsersForProfilePageQuery,
+        useLazyGetUsersForProfilePageQuery
 
     }
         = profileApi
