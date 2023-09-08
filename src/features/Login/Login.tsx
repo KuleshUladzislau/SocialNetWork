@@ -67,9 +67,19 @@ export const Login = () => {
     return (
 
         <LoginContainer>
-
+            <div style={{color: 'gray', textAlign: 'center'}}>
+                <p>To log in get registered
+                    <Link href={'https://social-network.samuraijs.com/'}
+                       target={'_blank'}> here
+                    </Link>
+                </p>
+                <p>or use common test account credentials:</p>
+                <p>Email: free@samuraijs.com</p>
+                <p>Password: free</p>
+            </div>
             <FormStyle onSubmit={handleSubmit(onSubmit)}>
                 <GlobalStyles overflow='hidden'/>
+
                 <LoginTitleStyle>Login</LoginTitleStyle>
 
                 <LabelStyle htmlFor={'email'}>Email</LabelStyle>
@@ -136,7 +146,7 @@ const LoginContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: -70px;
+  margin-top: -120px;
 
 `
 
@@ -177,4 +187,10 @@ const ErrorMessageStyle = styled.div`
 const FieldContainer = styled.div`
   display: flex;
   flex-direction: column;
+`
+
+
+const Link = styled.a`
+  color: #bd5629;
+  text-decoration: none;
 `
